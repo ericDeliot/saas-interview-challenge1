@@ -73,9 +73,11 @@ func (w *Worker) Start(subNbr int) error {
 	if !ok {
 		return errors.New("StartConsuming returned false")
 	}
+	fmt.Printf("Worker %s starting \n", w.name)
 	for i := 0; i < subNbr; i++ {
 		subwName := w.name + "_" + strconv.Itoa(i)
 		subw := newSubWorker(subwName, w)
+		fmt.Printf("SubWorker %s starting \n", subw.name)
 		w.taskQueue.AddConsumer(subwName, subw)
 	}
 	return nil
