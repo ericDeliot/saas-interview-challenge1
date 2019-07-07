@@ -16,7 +16,7 @@ I picked https://github.com/adjust/rmq (MIT licensed) to provide a task queue.
 My code has 4 components:
 
 - Producer: code pushing tasks into the queue
-- Worker: code starting a configurable number of workers that dequeue and process tasks
+- Worker: code starting a configurable number of subWorkers (goroutines) that dequeue and process tasks
 - Recorder: code updating the status of each task and publishing this update into a well known pubsub topic
 - Monitor: code subscribing to the pubsub topic to track the status of each task.
 
@@ -33,7 +33,7 @@ My objective was to try to write the code so that it was easily testable (using 
 
 The code has only one dependency (rmq) and this is handled by the provided Makefile. Running `make` should:
 
-- install the dependdency
+- install the dependency
 - build the code and place the binaries in `$GOPATH/bin`
 - run the unit tests
 - build the docker image for the worker service
